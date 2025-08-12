@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكتبة الكتب والمذكرات - تنزيل مجاني</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+        
+        :root {
+            --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --primary-dark: #5a6fd8;
+            --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --danger: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --dark: #2d3748;
+            --light: #f7fafc;
+            --white: #ffffff;
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 4rem 0 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.1;
+        }
+        
+        .header-content {
+            position: relative;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: -4rem auto 0;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Card Styles */
+        .card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .card-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .card-title i {
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+        }
+        
+        .card-body {
+            padding: 2rem;
+        }
+        
+        /* Admin Section */
+        .admin-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: var(--white);
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+            color: var(--white);
+        }
+        
+        /* Upload Form */
+        .upload-section {
+            display: none;
+            animation: slideInDown 0.5s ease-out;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+        
+        .form-input {
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--white);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-dark);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        /* Files Grid */
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            list-style: none;
+        }
+        
+        .file-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .file-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .file-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .file-card:hover::before {
+            transform: scaleY(1);
+        }
+        
+        .file-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        
+        .file-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .file-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn-sm {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-dark);
+            color: var(--primary-dark);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary-dark);
+            color: var(--white);
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+            grid-column: 1 / -1;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer p {
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header p {
+                font-size: 1.1rem;
+            }
+            
+            .header-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .container {
+                margin-top: -2rem;
+                padding: 0 1rem;
+            }
+            
+            .files-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .file-actions {
+                flex-direction: column;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                padding: 2rem 0 4rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Preloader styles */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .preloader.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .preloader-content {
+            text-align: center;
+            color: white;
+        }
+
+        .preloader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        /* Fast link preloading */
+        .file-card {
+            position: relative;
+        }
+
+        .file-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .file-card.loading::after {
+            opacity: 1;
+            transform: translateX(100%);
+        }
+
+        /* Button loading state */
+        .btn.loading {
+            position: relative;
+            color: transparent !important;
+            pointer-events: none;
+        }
+
+        .btn.loading::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top: 2px solid #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        /* Faster animations */
+        .file-card:hover {
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        /* Prefetch hint styles */
+        .prefetch-hint {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--success);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+        }
+
+        .file-card:hover .prefetch-hint {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Success Message */
+        .success-message {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            display: none;
+        }
+    </style>
+</head>
+    <!-- كود تسريع المعاينة -->
+    <script>
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.view-btn')) {
+            e.preventDefault();
+            const url = e.target.closest('.view-btn').getAttribute('href');
+            window.open(url, '_blank');
+        }
+    });
+    </script>
+</body>
+</html>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-spinner"></div>
+            <h3>جاري تحضير الملف...</h3>
+            <p>الرجاء الانتظار</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1><i class="fas fa-graduation-cap"></i> مكتبة الكتب والمذكرات</h1>
+            <p>مركز تحميل الكتب والمذكرات الدراسية المجانية</p>
+            <div class="header-stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="filesCount">9</span>
+                    <span class="stat-label">كتاب ومذكرة</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">مجاني</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">متاح دائماً</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Admin Section -->
+        <div class="admin-section">
+            <button class="btn btn-primary" id="loginBtn">
+                <i class="fas fa-lock"></i>
+                <span>دخول المسؤول</span>
+            </button>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="card upload-section" id="uploadSection">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    إضافة ملف جديد
+                </h2>
+            </div>
+            <div class="card-body">
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i>
+                    تم إضافة الملف بنجاح!
+                </div>
+                <form id="uploadForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="fileName">اسم الملف</label>
+                            <input type="text" class="form-input" id="fileName" placeholder="مثال: كتاب الرياضيات للصف الأول الثانوي" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="fileSize">حجم الملف</label>
+                            <input type="text" class="form-input" id="fileSize" placeholder="مثال: 2.4MB" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="viewLink">رابط المعاينة</label>
+                            <input type="url" class="form-input" id="viewLink" placeholder="https://drive.google.com/file/d/.../view" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="downloadLink">رابط التنزيل المباشر</label>
+                            <input type="url" class="form-input" id="downloadLink" placeholder="https://drive.google.com/uc?export=download&id=...">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-plus"></i>
+                        إضافة الملف
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Files Section -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    <i class="fas fa-book-open"></i>
+                    الكتب والمذكرات المتاحة
+                </h2>
+            </div>
+            <div class="card-body">
+                <ul class="files-grid" id="filesList"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>جميع الحقوق محفوظة &copy; <span id="year"></span> - مكتبة الكتب والمذكرات</p>
+    </footer>
+
+    <script>
+        // Initial data with all original Google Drive links preserved
+        let files = JSON.parse(sessionStorage.getItem('libraryFiles')) || [
+            { 
+                id: 1, 
+                name: "كتاب أفوجادرو - الثالث الثانوي (شرح)", 
+                url: "https://drive.google.com/file/d/1f7nXRGFHbDapyAi4A44VzGKcO-_Mee6S/view?usp=drivesdk",
+                directDownload: "https://drive.google.com/uc?export=download&id=1f7nXRGFHbDapyAi4A44VzGKcO-_Mee6S",
+                size: "105.9MB",
+                date: "2024-08-11"
+            },
+            { 
+                id: 2, 
+                name: "مذكرة فيزياء - الثالث الثانوي الأزهري (شرح)", 
+                url: "https://drive.google.com/file/d/1I2_XF0Dv9JoFEsZv3n1NoC9DChXAxWfs/view?usp=drivesdk",
+                directDownload: "https://drive.google.com/uc?export=download&id=1I2_XF0Dv9JoFEsZv3n1NoC9DChXAxWfs",
+                size: "15.3MB",
+                date: "2024-08-11"
+            },
+            { 
+                id: 3, 
+                name: "كتاب الامتحان - أحياء الثالث الثانوي (شرح)", 
+                url: "https://drive.google.com/file/d/1Uf10iNdYuoumURkNFFBoNDXPV7zwv7A1/view?usp=drivesdk",
+                directDownload: "https://drive.google.com/uc?export=download&id=1Uf10iNdYuoumURkNFFBoNDXPV7zwv7A1",
+                size: "57.2MB",
+                date: "2024-08-11"
+            },
+            { 
+                id: 4, 
+                name: "كتاب الامتحان - أحياء الثالث الثانوي (أسئلة)", 
+                url: "https://drive.google.com/file/d/1uFue5226mNepR4hnwsHwCvF5VclhuuhN/view?usp=sharing",
+                directDownload: "https://drive.google.com/uc?export=download&id=1uFue5226mNepR4hnwsHwCvF5VclhuuhN",
+                size: "159.6MB",
+                date: "2024-08-11"
+            },
+            { 
+                id: 5, 
+                name: "كتاب الطيب - أسئلة الثالث الثانوي الأزهري", 
+                url: "https://drive.google.com/file/d/1bXIyRJedGRccLx5AYRpk8PPWN8tLROAe/view?usp=sharing",
+                directDownload: "https://drive.google.com/uc?export=download&id=1bXIyRJedGRccLx5AYRpk8PPWN8tLROAe",
+                size: "107.9MB",
+                date: "2024-08-11"
+            },
+            { 
+                id: 6, 
+                name: "كتاب الامتحان فيزياء تالته ثانوي (شرح)", 
+                url: "https://drive.google.com/file/d/1bpp4p_B88PULwk-6ldJVujO5-LknfmSU/view?usp=drive_link",
+                directDownload: "https://drive.google.com/uc?export=download&id=1bpp4p_B88PULwk-6ldJVujO5-LknfmSU",
+                size: "112.1MB",
+                date: "2024-08-11"
+            },
+            { 
+                id: 7, 
+                name: "كتاب الامتحان فزياء تالته ثانوي (اسئله)",
+                url: "https://drive.google.com/file/d/1SIzDPlu0KrCzksI8T9k6JdAVGH1IJhG6/view?usp=drive_link",
+                directDownload: "https://drive.google.com/uc?export=download&id=1SIzDPlu0KrCzksI8T9k6JdAVGH1IJhG6",
+                size: "196.2MB",
+                date: "2024-08-11"
+            },
+            { 
+                id: 8, 
+                name: "كتاب المعاصر تالته ثانوي جبر وهندسه وفراغيه 2025",
+                url: "https://drive.google.com/file/d/1OkEn4AhDEkOQGg4qoqDedNdl8e9S7aBJ/view?usp=sharing",
+                directDownload: "https://drive.google.com/uc?export=download&id=1OkEn4AhDEkOQGg4qoqDedNdl8e9S7aBJ",
+                size: "91.7MB",
+                date: "2024-08-11"
+            }, 
+            { 
+                id: 9, 
+                name: "كتاب المعاصر تفاضل وتكامل 2025",
+                url: "https://drive.google.com/file/d/1FK4kvaT6kl8CSdB1s5N_-z5G_VGepxmJ/view?usp=sharing",
+                directDownload: "https://drive.google.com/uc?export=download&id=1FK4kvaT6kl8CSdB1s5N_-z5G_VGepxmJ",
+                size: "146.2MB",
+                date: "2024-08-11"
+            }
+        ];
+        
+        let isAdminLoggedIn = sessionStorage.getItem('adminLoggedIn') === 'true';
+        
+        // Set current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Display files function
+        function displayFiles() {
+            const filesList = document.getElementById('filesList');
+            const filesCount = document.getElementById('filesCount');
+            
+            filesList.innerHTML = '';
+            filesCount.textContent = files.length;
+            
+            if (files.length === 0) {
+                filesList.innerHTML = `
+                    <li class="empty-state">
+                        <i class="fas fa-folder-open"></i>
+                        <h3>لا توجد ملفات متاحة حالياً</h3>
+                        <p>سيتم إضافة المزيد من الكتب والمذكرات قريباً</p>
+                    </li>
+                `;
+                return;
+            }
+            
+            const sortedFiles = [...files].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            sortedFiles.forEach(file => {
+                const li = document.createElement('li');
+                li.className = 'file-card';
+                
+                li.innerHTML = `
+                    <div class="file-name">${file.name}</div>
+                    <div class="file-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-hdd"></i>
+                            <span>${file.size}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>${file.date}</span>
+                        </div>
+                    </div>
+                    <div class="file-actions">
+                        <a href="${file.url}" class="btn btn-outline btn-sm view-btn" target="_blank" rel="noopener" data-file-id="${file.id}">
+                            <i class="fas fa-eye"></i>
+                            معاينة
+                        </a>
+                        <a href="${file.directDownload}" class="btn btn-primary btn-sm download-btn" data-file-id="${file.id}">
+                            <i class="fas fa-download"></i>
+                            تحميل
+                        </a>
+                    </div>
+                    <div class="prefetch-hint">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                `;
+                
+                filesList.appendChild(li);
+            });
+        }
+        
+        // Save files to sessionStorage
+        function saveFiles() {
+            sessionStorage.setItem('libraryFiles', JSON.stringify(files));
+        }
+        
+        // Update admin UI
+        function updateAdminUI() {
+            const uploadSection = document.getElementById('uploadSection');
+            const loginBtn = document.getElementById('loginBtn');
+            
+            if (isAdminLoggedIn) {
+                uploadSection.style.display = 'block';
+                loginBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i><span>خروج المسؤول</span>';
+                loginBtn.className = 'btn btn-danger';
+            } else {
+                uploadSection.style.display = 'none';
+                loginBtn.innerHTML = '<i class="fas fa-lock"></i><span>دخول المسؤول</span>';
+                loginBtn.className = 'btn btn-primary';
+            }
+        }
+        
+        // Handle form submission
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const fileName = document.getElementById('fileName').value.trim();
+            const fileSize = document.getElementById('fileSize').value.trim();
+            const viewLink = document.getElementById('viewLink').value.trim();
+            const downloadLink = document.getElementById('downloadLink').value.trim();
+            
+            if (!fileName || !fileSize || !viewLink) {
+                alert('الرجاء تعبئة جميع الحقول المطلوبة');
+                return;
+            }
+            
+            // Extract file ID from Google Drive link
+            let fileId = '';
+            const viewMatch = viewLink.match(/\/file\/d\/([^\/]+)/);
+            
+            if (viewMatch && viewMatch[1]) {
+                fileId = viewMatch[1];
+            }
+            
+            // Create direct download link if not provided
+            const finalDownloadLink = downloadLink || 
+                (fileId ? `https://drive.google.com/uc?export=download&id=${fileId}` : viewLink);
+            
+            const newFile = {
+                id: files.length > 0 ? Math.max(...files.map(f => f.id)) + 1 : 1,
+                name: fileName,
+                url: viewLink,
+                directDownload: finalDownloadLink,
+                size: fileSize,
+                date: new Date().toISOString().split('T')[0]
+            };
+            
+            files.unshift(newFile);
+            saveFiles();
+            displayFiles();
+            
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 3000);
+            
+            // Reset form
+            this.reset();
+        });
+        
+        // Handle admin login/logout
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            if (isAdminLoggedIn) {
+                // Logout
+                isAdminLoggedIn = false;
+                sessionStorage.removeItem('adminLoggedIn');
+                
+                // Show logout confirmation
+                const button = this;
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i><span>تم تسجيل الخروج</span>';
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    button.disabled = false;
+                    updateAdminUI();
+                }, 1500);
+                
+            } else {
+                // Login
+                const password = prompt('الرجاء إدخال كلمة مرور المسؤول:');
+                if (password === "admin123") {
+                    isAdminLoggedIn = true;
+                    sessionStorage.setItem('adminLoggedIn', 'true');
+                    
+                    // Show login success
+                    const button = this;
+                    const originalHTML = button.innerHTML;
+                    button.innerHTML = '<i class="fas fa-check"></i><span>تم تسجيل الدخول</span>';
+                    button.disabled = true;
+                    
+                    setTimeout(() => {
+                        button.disabled = false;
+                        updateAdminUI();
+                    }, 1500);
+                    
+                } else if (password !== null) {
+                    alert('كلمة المرور غير صحيحة');
+                }
+            }
+        });
+        
+        // Add smooth scrolling to anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Fast link preloading and optimization functions
+        function preloadGoogleDriveLink(url) {
+            return new Promise((resolve) => {
+                const link = document.createElement('link');
+                link.rel = 'prefetch';
+                link.href = url;
+                link.onload = () => resolve(true);
+                link.onerror = () => resolve(false);
+                document.head.appendChild(link);
+                
+                // Remove after 5 seconds to clean up
+                setTimeout(() => {
+                    if (document.head.contains(link)) {
+                        document.head.removeChild(link);
+                    }
+                }, 5000);
+            });
+        }
+
+        // Create invisible iframe for faster Google Drive loading
+        function preloadInIframe(url) {
+            const iframe = document.createElement('iframe');
+            iframe.src = url;
+            iframe.style.width = '0';
+            iframe.style.height = '0';
+            iframe.style.border = 'none';
+            iframe.style.position = 'absolute';
+            iframe.style.left = '-9999px';
+            iframe.style.top = '-9999px';
+            document.body.appendChild(iframe);
+            
+            // Remove after 10 seconds
+            setTimeout(() => {
+                if (document.body.contains(iframe)) {
+                    document.body.removeChild(iframe);
+                }
+            }, 10000);
+        }
+
+        // Enhanced button click handler with speed optimization
+        document.addEventListener('click', function(e) {
+            const btn = e.target.closest('.view-btn, .download-btn');
+            if (btn && btn.href && btn.href.includes('drive.google.com')) {
+                e.preventDefault();
+                
+                // Show preloader
+                const preloader = document.getElementById('preloader');
+                preloader.classList.add('active');
+                
+                // Add loading animation to the card
+                const card = btn.closest('.file-card');
+                card.classList.add('loading');
+                
+                // Add loading state to button
+                btn.classList.add('loading');
+                
+                // Preload the link
+                preloadGoogleDriveLink(btn.href).then(() => {
+                    // Hide preloader after a short delay
+                    setTimeout(() => {
+                        preloader.classList.remove('active');
+                        card.classList.remove('loading');
+                        btn.classList.remove('loading');
+                        
+                        // Open the link
+                        if (btn.classList.contains('view-btn')) {
+                            window.open(btn.href, '_blank', 'noopener,noreferrer');
+                        } else {
+                            // For download links, create a temporary link and click it
+                            const tempLink = document.createElement('a');
+                            tempLink.href = btn.href;
+                            tempLink.download = '';
+                            tempLink.target = '_blank';
+                            document.body.appendChild(tempLink);
+                            tempLink.click();
+                            document.body.removeChild(tempLink);
+                        }
+                    }, 800); // Reduced delay for faster response
+                });
+            }
+        });
+
+        // Preload links on hover for even faster response
+        document.addEventListener('mouseover', function(e) {
+            const btn = e.target.closest('.view-btn, .download-btn');
+            if (btn && btn.href && btn.href.includes('drive.google.com')) {
+                // Preload on hover
+                preloadGoogleDriveLink(btn.href);
+                
+                // Add visual indicator
+                const card = btn.closest('.file-card');
+                const hint = card.querySelector('.prefetch-hint');
+                if (hint) {
+                    hint.style.opacity = '1';
+                    hint.style.transform = 'scale(1)';
+                }
+            }
+        });
+
+        // Remove hover effects
+        document.addEventListener('mouseout', function(e) {
+            const btn = e.target.closest('.view-btn, .download-btn');
+            if (btn) {
+                const card = btn.closest('.file-card');
+                const hint = card.querySelector('.prefetch-hint');
+                if (hint) {
+                    hint.style.opacity = '0';
+                    hint.style.transform = 'scale(0)';
+                }
+            }
+        });
+
+        // Intersection Observer for preloading visible links
+        function setupLinkPreloading() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const card = entry.target;
+                        const buttons = card.querySelectorAll('.view-btn, .download-btn');
+                        
+                        buttons.forEach(btn => {
+                            if (btn.href && btn.href.includes('drive.google.com')) {
+                                // Preload links that are visible
+                                setTimeout(() => {
+                                    preloadGoogleDriveLink(btn.href);
+                                }, 500);
+                            }
+                        });
+                        
+                        observer.unobserve(card);
+                    }
+                });
+            }, {
+                rootMargin: '100px' // Start preloading when element is 100px away from viewport
+            });
+
+            // Observe all file cards
+            document.querySelectorAll('.file-card').forEach(card => {
+                observer.observe(card);
+            });
+        }
+        
+        // Initialize page
+        window.addEventListener('DOMContentLoaded', () => {
+            displayFiles();
+            updateAdminUI();
+            
+            // Setup link preloading after files are displayed
+            setTimeout(() => {
+                setupLinkPreloading();
+            }, 1000);
+            
+            // Add entrance animation to file cards
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            // Observe file cards for animation
+            setTimeout(() => {
+                document.querySelectorAll('.file-card').forEach((card, index) => {
+                    card.style.opacity = '0';
+                    card.style.animationDelay = `${index * 0.1}s`;
+                    observer.observe(card);
+                });
+            }, 100);
+        });
+        
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            // ESC key to close admin panel
+            if (e.key === 'Escape' && isAdminLoggedIn) {
+                const uploadSection = document.getElementById('uploadSection');
+                if (uploadSection.style.display !== 'none') {
+                    isAdminLoggedIn = false;
+                    sessionStorage.removeItem('adminLoggedIn');
+                    updateAdminUI();
+                }
+            }
+        });
+        
+        // Add search functionality
+        let searchTimeout;
+        function addSearchFunctionality() {
+            const searchContainer = document.querySelector('.card-header');
+            if (!document.getElementById('searchInput')) {
+                const searchHTML = `
+                    <div style="margin-top: 1rem;">
+                        <div style="position: relative; max-width: 400px;">
+                            <input type="text" id="searchInput" class="form-input" placeholder="البحث في الكتب والمذكرات..." style="padding-right: 3rem;">
+                            <i class="fas fa-search" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: #718096;"></i>
+                        </div>
+                    </div>
+                `;
+                searchContainer.insertAdjacentHTML('beforeend', searchHTML);
+                
+                const searchInput = document.getElementById('searchInput');
+                searchInput.addEventListener('input', function() {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => {
+                        filterFiles(this.value);
+                    }, 300);
+                });
+            }
+        }
+        
+        function filterFiles(searchTerm) {
+            const fileCards = document.querySelectorAll('.file-card');
+            const term = searchTerm.toLowerCase().trim();
+            
+            fileCards.forEach(card => {
+                const fileName = card.querySelector('.file-name').textContent.toLowerCase();
+                if (fileName.includes(term) || term === '') {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeInUp 0.3s ease-out';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        // Initialize search after files are displayed
+        setTimeout(() => {
+            addSearchFunctionality();
+            // Setup link preloading after search is added
+            setupLinkPreloading();
+        }, 500);
+    </script>
+</body>
+</html>
